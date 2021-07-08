@@ -36,9 +36,13 @@ def calculate_points_sum():
     client.execute('INSERT INTO test (datetime, points) VALUES (%(datetime)s, %(points_sum)s)', {'datetime': datetime.now(), 'points_sum': points_sum})
 
     # test print of all rows in default.test table to show code running correctly
-    print(client.execute('SELECT * FROM test'))
+    print(client.execute("SELECT * FROM test"))
+
+    # return points_sum so it'll be also wrote in our celery backend (in this case sqlite database)
+    return points_sum
 
 if __name__ == "__main__":
+    # run indefinitely every 1 minute
     while(True):
-        calculate_points_sum.delay()
-        sleep(2)
+        calculate_points_sum()
+        sleep(60)
