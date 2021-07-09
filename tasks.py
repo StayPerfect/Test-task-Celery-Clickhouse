@@ -44,5 +44,5 @@ def calculate_points_sum():
 if __name__ == "__main__":
     # run indefinitely every 1 minute
     while(True):
-        calculate_points_sum()
+        calculate_points_sum.delay()
         sleep(60)
